@@ -57,9 +57,11 @@ for dir in onlydirs:
         os.makedirs(hidden_dir)
 
     migrations_filename = hidden_dir + 'migrations'
-    with open(migrations_filename, "a") as migration_file:
+
+    line_count = 1
+
+    with open(migrations_filename, "r") as migration_file:
     	lines = [line.rstrip() for line in migration_file]
-    	line_count = 1
     	for line in lines:
     		version, filename = line.split(':')
     		version = int(version)
@@ -78,8 +80,11 @@ for dir in onlydirs:
 
     		line_count += 1
 
+
+    with open(migrations_filename, "a") as migration_file:
     	while line_count <= len(versions):
     		migration_file.write(f"{line_count}:{versions[line_count]}\n")
+    		print(f"{line_count}:{versions[line_count]}\n")
     		line_count += 1
 
 
