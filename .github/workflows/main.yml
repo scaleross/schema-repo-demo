@@ -35,5 +35,5 @@ jobs:
       - name: revert failed migration
         if: steps.verify.outcome == 'failure'
         run: |
-          git revert HEAD --no-edit
-          git push
+          git log
+          
