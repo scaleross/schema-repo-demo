@@ -1,5 +1,6 @@
 from os import listdir
 from os.path import isfile, join, isdir
+from integer import Integer
 
 mypath = './'
 onlydirs = [f for f in listdir(mypath) if isdir(join(mypath, f))]
