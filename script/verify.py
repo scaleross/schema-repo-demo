@@ -44,7 +44,7 @@ for dir in onlydirs:
         	exit(1)
 
         print(next_version)
-        versions.add(next_version)
+        versions[next_version] = file
 
 
     exit(1)
