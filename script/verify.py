@@ -14,7 +14,7 @@ def is_valid_migration_name(name):
 		exit(1)
 
 	parts = name.split('_')
-	if len(parts < 2):
+	if len(parts)  < 2:
 		print(f'{name} not contains _')
 		exit(1)
 
