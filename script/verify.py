@@ -38,7 +38,7 @@ for dir in onlydirs:
     versions = {}
     for file in onlyfiles:
         print(file)
-        next_version = is_valid_migration_name(name)
+        next_version = is_valid_migration_name(file)
         if next_version in versions:
         	print(f'find duplicate version in {dir}')
         	exit(1)
