@@ -38,7 +38,7 @@ jobs:
         run: |
           git config --global user.name "CHECKER"
           git log
-          git revert HEAD
+          git revert HEAD~1
       - name: push_metadata_file
         if: steps.revert.outcome == 'success'
         uses: actions-js/push@master
