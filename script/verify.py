@@ -18,7 +18,7 @@ for dir in onlydirs:
         	print(f'find duplicate version in {dir}')
         	exit(1)
 
-    	print(next_version)
+        print(next_version)
         versions.add(next_version)
 
 
