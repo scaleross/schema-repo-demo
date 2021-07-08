@@ -1,6 +1,5 @@
 from os import listdir
 from os.path import isfile, join, isdir
-from integer import Integer
 
 mypath = './'
 onlydirs = [f for f in listdir(mypath) if isdir(join(mypath, f))]
@@ -27,7 +26,7 @@ def is_valid_migration_name(name):
 	if not version.isnumeric():
 		print(f'version {version} not numeric')
 
-	return Integer.parseInt(version);  
+	return int(version);  
 
 
 for dir in onlydirs:
