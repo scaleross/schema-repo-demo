@@ -39,9 +39,7 @@ jobs:
         id: revert
         run: |
           git config --global user.name "CHECKER"
-          git log
           git revert HEAD
-          git log
       - name: push_revert_file
         if: steps.revert.outcome == 'success'
         uses: ad-m/github-push-action@master
