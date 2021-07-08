@@ -43,8 +43,13 @@ for dir in onlydirs:
         	print(f'find duplicate version in {dir}')
         	exit(1)
 
-        print(next_version)
         versions[next_version] = file
+
+    total_versions = len(versions)
+    for i in range(1, total_versions + 1):
+    	if i not in versions:
+    		print(f'version {i} is missing!')
+    		exit(1)
 
 
 
