@@ -32,4 +32,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           message: commit meta
           branch: ${{ steps.extract_branch.outputs.branch }}
-
+      - name: revert failed migration
+        if: steps.verify.outcome == 'failure'
+        run: |
+          git revert HEAD --no-edit
+          git push
