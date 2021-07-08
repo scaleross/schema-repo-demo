@@ -4,26 +4,6 @@ from os.path import isfile, join, isdir
 mypath = './'
 onlydirs = [f for f in listdir(mypath) if isdir(join(mypath, f))]
 
-for dir in onlydirs:
-    if dir.startswith('.') or dir == 'script':
-        continue
-    print(f"{dir}:")
-    current_path = './' + str(dir) + '/'
-    onlyfiles = [f for f in listdir(current_path) if isfile(join(current_path, f))]
-    versions = {}
-    for file in onlyfiles:
-        print(file)
-        next_version = is_valid_migration_name(name)
-        if next_version in versions:
-        	print(f'find duplicate version in {dir}')
-        	exit(1)
-
-        print(next_version)
-        versions.add(next_version)
-
-
-    exit(1)
-
 def is_valid_migration_name(name):
 	if len(name) > 64:
 		print(f'filename too long: {name}')
@@ -47,5 +27,28 @@ def is_valid_migration_name(name):
 		print(f'version {version} not numeric')
 
 	return Integer.parseInt(version);  
+
+
+for dir in onlydirs:
+    if dir.startswith('.') or dir == 'script':
+        continue
+    print(f"{dir}:")
+    current_path = './' + str(dir) + '/'
+    onlyfiles = [f for f in listdir(current_path) if isfile(join(current_path, f))]
+    versions = {}
+    for file in onlyfiles:
+        print(file)
+        next_version = is_valid_migration_name(name)
+        if next_version in versions:
+        	print(f'find duplicate version in {dir}')
+        	exit(1)
+
+        print(next_version)
+        versions.add(next_version)
+
+
+    exit(1)
+
+
 
     
