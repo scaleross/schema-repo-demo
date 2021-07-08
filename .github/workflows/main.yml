@@ -12,6 +12,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -37,14 +39,10 @@ jobs:
         id: revert
         run: |
           git config --global user.name "CHECKER"
-          git log
           git revert HEAD
-          git log
-      - name: push_metadata_file
+      - name: push_revert_file
         if: steps.revert.outcome == 'success'
-        uses: actions-js/push@master
+        uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          message: commit meta
-          branch: ${{ steps.extract_branch.outputs.branch }}
-          
+          branch: ${{ steps.extract_branch.outputs.branch }}    
