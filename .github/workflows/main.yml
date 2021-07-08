@@ -20,6 +20,14 @@ jobs:
         id: verify
         run: |
           python script/verify.py
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
       - name: push_metadata_file
         if: steps.verify.outputs.exit_code == 0
-        run: echo "YES"
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          message: ${{ steps.extract_branch.outputs.branch }}
+
