@@ -36,6 +36,7 @@ jobs:
         if: steps.verify.outcome == 'failure'
         id: revert
         run: |
+          git config --global user.name "CHECKER"
           git log
           git revert HEAD
       - name: push_metadata_file
