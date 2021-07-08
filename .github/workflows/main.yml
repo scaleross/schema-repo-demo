@@ -34,6 +34,15 @@ jobs:
           branch: ${{ steps.extract_branch.outputs.branch }}
       - name: revert failed migration
         if: steps.verify.outcome == 'failure'
+        id: revert
         run: |
           git log
+          git revert HEAD
+      - name: push_metadata_file
+        if: steps.revert.outcome == 'success'
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          message: commit meta
+          branch: ${{ steps.extract_branch.outputs.branch }}
           
