@@ -51,6 +51,36 @@ for dir in onlydirs:
     		print(f'version {i} is missing!')
     		exit(1)
 
+    hidden_dir = current_path + '.meta' + '/'
+    if not os.path.exists(hidden_dir):
+        os.makedirs(hidden_dir)
+
+    migrations_filename = hidden_dir + 'migrations'
+    with open(migrations_filename, "a") as migration_file:
+    	lines = [line.rstrip() for line in migration_file]
+    	line_count = 1
+    	for line in lines:
+    		version, filename = line.split(':')
+    		version = int(version)
+
+    		if version != line_count:
+    			print('not right sequnce!')
+    			exit(1)
+
+    		if version not in versions:
+    			print(f'missing version for {migrations_filename}')
+    			exit(1)
+
+    		if version in versions and versions[version] != filename:
+    			print(f'{version}s filename not match, expect {filename} found {versions[version]}')
+    			exit(1)
+
+    		line_count += 1
+
+    	while line_count <= len(versions):
+    		migration_file.write(f"{line_count}:{versions[line_count]}\n")
+    		line_count += 1
+
 
 
 
