@@ -18,6 +18,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: verify_versions
         id: verify
+        continue-on-error: true
         run: |
           python script/verify.py
       - name: Extract branch name
