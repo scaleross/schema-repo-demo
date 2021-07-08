@@ -47,7 +47,6 @@ for dir in onlydirs:
         versions[next_version] = file
 
 
-    exit(1)
 
 
 
