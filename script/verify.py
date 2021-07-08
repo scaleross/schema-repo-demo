@@ -60,6 +60,9 @@ for dir in onlydirs:
 
     line_count = 1
 
+    with open(migrations_filename, "a") as migration_file:
+    	pass
+
     with open(migrations_filename, "r") as migration_file:
     	lines = [line.rstrip() for line in migration_file]
     	for line in lines:
