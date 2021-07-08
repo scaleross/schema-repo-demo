@@ -17,6 +17,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: verify_versions
+        id: verify
         run: |
           python script/verify.py
-
+      - name: push_metadata_file
+        if: steps.verify.outputs.exit_code == 0
+        run: echo "YES"
