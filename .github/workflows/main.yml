@@ -18,9 +18,11 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: output_changed_files
+      - name: get changed files
         run: |
-          git show --name-only --oneline HEAD > changed_files.meta
+          git show --name-only --oneline HEAD > git_info
+          tail -n +2 git_info > changed_files.meta
+          rm git_info
           cat changed_files.meta
       # - name: verify_versions
       #   id: verify
