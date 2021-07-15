@@ -28,7 +28,11 @@ jobs:
             echo "file: $p"
             cp --parents $p upload/
           done < changed_files.meta
-          ls -aR upload
+      - name: upload to s3
+        uses: jakejarvis/s3-sync-action@master
+        env:
+          AWS_S3_BUCKET: bscale-repos-do-not-use
+          SOURCE_DIR: 'upload'
       - name: remove copied files
         run: |
           rm changed_files.meta
