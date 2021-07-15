@@ -28,6 +28,10 @@ jobs:
             echo "file: $p"
             cp --parents $p upload/
           done < changed_files.meta
+      - name: get commit hash
+        id: commit_hash
+        shell: bash
+        run: echo "##[set-output name=hash;]$(git rev-parse HEAD)"
       - name: upload to s3
         uses: jakejarvis/s3-sync-action@master
         env:
@@ -35,7 +39,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SOURCE_DIR: 'upload'
-          DEST_DIR: 'created'
+          DEST_DIR: ${{ steps.commit_hash.outputs.hash }}
       - name: remove copied files
         run: |
           rm changed_files.meta
