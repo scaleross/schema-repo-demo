@@ -18,31 +18,35 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: verify_versions
-        id: verify
-        continue-on-error: true
+      - name: output_changed_files
         run: |
-          python script/verify.py
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-      - name: push_metadata_file
-        if: steps.verify.outcome == 'success'
-        uses: actions-js/push@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          message: commit meta
-          branch: ${{ steps.extract_branch.outputs.branch }}
-      - name: revert failed migration
-        if: steps.verify.outcome == 'failure'
-        id: revert
-        run: |
-          git config --global user.name "CHECKER"
-          git revert HEAD
-      - name: push_revert_file
-        if: steps.revert.outcome == 'success'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ steps.extract_branch.outputs.branch }}    
+          git show --name-only --oneline HEAD > changed_files.meta
+          cat changed_files.meta
+      # - name: verify_versions
+      #   id: verify
+      #   continue-on-error: true
+      #   run: |
+      #     python script/verify.py
+      # - name: Extract branch name
+      #   shell: bash
+      #   run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      #   id: extract_branch
+      # - name: push_metadata_file
+      #   if: steps.verify.outcome == 'success'
+      #   uses: actions-js/push@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     message: commit meta
+      #     branch: ${{ steps.extract_branch.outputs.branch }}
+      # - name: revert failed migration
+      #   if: steps.verify.outcome == 'failure'
+      #   id: revert
+      #   run: |
+      #     git config --global user.name "CHECKER"
+      #     git revert HEAD
+      # - name: push_revert_file
+      #   if: steps.revert.outcome == 'success'
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: ${{ steps.extract_branch.outputs.branch }}    
