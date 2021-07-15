@@ -6,16 +6,16 @@ hash_val = sys.argv[HASH_INDEX]
 
 print(f"handling {hash_val}")
 
-keyspace = ""
+keyspace = "unknown"
 with open("changed_files.meta", "r") as changed_files:
     lines = [line.rstrip() for line in changed_files]
     for line in lines:
         splits = line.split('/')
-        if splits == 2:
+        # find first one in non hidden dir
+        if len(splits) == 2 and not splits[0].startswith('.'):
         	keyspace = splits[0]
         	break
 
-
-print(keyspace)
+print(f"keyspace:{keyspace}")
 
 
