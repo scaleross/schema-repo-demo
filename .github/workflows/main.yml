@@ -23,9 +23,12 @@ jobs:
           git show --name-only --oneline HEAD > git_info
           tail -n +2 git_info > changed_files.meta
           rm git_info
+          mkdir upload
           while read p; do
             echo "file: $p"
+            cp --parents $p upload/
           done < changed_files.meta
+          ls -aR upload
       # - name: verify_versions
       #   id: verify
       #   continue-on-error: true
