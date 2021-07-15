@@ -32,7 +32,10 @@ jobs:
         uses: jakejarvis/s3-sync-action@master
         env:
           AWS_S3_BUCKET: bscale-repos-do-not-use
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SOURCE_DIR: 'upload'
+          DEST_DIR: 'created'
       - name: remove copied files
         run: |
           rm changed_files.meta
