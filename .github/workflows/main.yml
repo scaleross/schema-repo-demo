@@ -29,6 +29,11 @@ jobs:
             cp --parents $p upload/
           done < changed_files.meta
           ls -aR upload
+      - name: remove copied files
+        run: |
+          rm changed_files.meta
+          rm -rf upload
+          ls
       # - name: verify_versions
       #   id: verify
       #   continue-on-error: true
