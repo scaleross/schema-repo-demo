@@ -42,11 +42,16 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           SOURCE_DIR: 'upload'
           DEST_DIR: ${{ steps.commit_hash.outputs.hash }}
+      - name: create jobs
+        with:
+          HASH: ${{ steps.commit_hash.outputs.hash }}
+        run: |
+          echo $INPUT_HASH
+          python script/create_job.py $INPUT_HASH
       - name: remove copied files
         run: |
           rm changed_files.meta
           rm -rf upload
-          ls
       # - name: verify_versions
       #   id: verify
       #   continue-on-error: true
