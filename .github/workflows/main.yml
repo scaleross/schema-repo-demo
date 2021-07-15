@@ -23,7 +23,9 @@ jobs:
           git show --name-only --oneline HEAD > git_info
           tail -n +2 git_info > changed_files.meta
           rm git_info
-          cat changed_files.meta
+          while read p; do
+            echo "file: $p"
+          done < changed_files.meta
       # - name: verify_versions
       #   id: verify
       #   continue-on-error: true
