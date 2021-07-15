@@ -44,7 +44,6 @@ jobs:
           DEST_DIR: ${{ steps.commit_hash.outputs.hash }}
       - name: create jobs
         run: |
-          echo $INPUT_HASH
           python script/create_job.py ${{ steps.commit_hash.outputs.hash }}
       - name: remove copied files
         run: |
