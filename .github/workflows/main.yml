@@ -25,15 +25,18 @@ jobs:
       - name: get changed files
         run: |
           git show --name-only --oneline HEAD > git_info
-          tail -n +2 git_info > changed_files.meta
+          tail -n +2 git_info > changed_files
           rm git_info
           mkdir upload
           while read p; do
             echo "file: $p"
-            sha1sum $p > $p.sha1
-            cp --parents $p upload/
-            cp --parents $p.sha1 upload/
-          done < changed_files.meta
+            if test -f $p; then
+              sha1sum $p > $p.sha1
+              cp --parents $p upload/
+              cp --parents $p.sha1 upload/
+              echo $p >> changed_files.meta
+            fi
+          done < changed_files
       - name: upload to s3
         uses: jakejarvis/s3-sync-action@master
         env:
@@ -49,6 +52,7 @@ jobs:
         run: |
           rm changed_files.meta
           rm -rf upload
+          rm changed_files
       # - name: verify_versions
       #   id: verify
       #   continue-on-error: true
