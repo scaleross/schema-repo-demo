@@ -20,9 +20,11 @@ with open("changed_files.meta", "r") as changed_files:
 
 print(f"keyspace:{keyspace}")
 
+# dummy implementation
 response = requests.get("https://www.google.com/")
-
 print(response.text)
+
+# check response and wait for result.
 
 
 
