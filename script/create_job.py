@@ -22,7 +22,7 @@ print(f"keyspace:{keyspace}")
 
 response = requests.get("https://www.google.com/")
 
-print(response.txt)
+print(response.text)
 
 
 
