@@ -1,4 +1,5 @@
 import sys
+import requests
 
 HASH_INDEX = 1
 
@@ -18,5 +19,10 @@ with open("changed_files.meta", "r") as changed_files:
         	break
 
 print(f"keyspace:{keyspace}")
+
+response = requests.get("https://www.google.com/")
+
+print(response.txt)
+
 
 
